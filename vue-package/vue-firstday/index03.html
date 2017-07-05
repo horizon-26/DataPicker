@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>vue 实例</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+</head>
+<body>
+
+<div id="example">除了data属性,Vue实例暴露了一些有用的实例属性与方法.这些属性与方法都有前缀 $,以便与代理的data属性区分</div>
+    <script src="vue.js"></script>
+    <script>
+	    var data = { a: 1 }
+	    var vm = new Vue({
+	    	el: '#example',
+	    	data: data,
+	    	created: function(){
+	    		console.log('a is: ' + this.a) // -> a is: 1
+	    	}
+	    })
+	    console.log(vm.data === data.data) // -> true
+
+	    vm.a = 2
+	    console.log("data.a=" + data.a) // -> data.a= 2
+
+	    data.a = 3
+	    console.log("vm.a=" + vm.a)  // -> vm.a=3
+
+	    console.log(vm.$data === data) // -> true
+	    console.log(vm.$el === document.getElementById('example'))
+    </script> 
+</body>
+</html>

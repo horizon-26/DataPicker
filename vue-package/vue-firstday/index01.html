@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>vue.js 初认识</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+</head>
+<body>
+    <div id="app-1">
+    	<p>{{message}}</p>
+    </div>
+
+    <div id="app-2">
+    <!-- v-bind 属性被称为指令。指令带有前缀 v-
+    	这里该指令的作用是：“将这个元素节点的 title 属性和 Vue 实例的 message 属性保持一致” 
+    	v-bind 缩写：-->
+    	<span v-bind:title = "message"> 
+    	鼠标悬停几秒钟查看此处动态绑定的提示信息！</span>
+    	<span :title = "message"> 
+    	v-bind的缩写</span>
+    </div>
+
+    <div id="app-3">
+    	<p v-if="seen">现在你看到我了</p>
+    </div>
+
+    <div id="app-4">
+    	<ol>
+    	<!-- v-for 指令可以绑定数组的数据来渲染一个项目列表 -->
+    		<li v-for = "todo in todos">{{ todo.text }}</li>
+    	</ol>
+    </div>
+
+    <div id="app-5">
+    	<p>{{message}}</p>
+    	<!-- v-on 指令绑定一个事件监听器，通过它调用我们 Vue 实例中定义的方法： -->
+    	<button v-on:click="reverseMessage">逆转消息</button>
+    	<button @click="reverseMessage">v-on的缩写：@</button>
+    </div>
+
+    <div id="app-6">
+     <!-- v-model 指令，它能轻松实现表单输入和应用状态之间的双向绑定。 -->
+    	<input type="text" v-model="message">
+    	<p>{{message}}</p>
+    </div>
+
+<script src="vue.js"></script>
+<script>
+	var app = new Vue ({
+		el: '#app-1',
+		data: {
+			message: 'Hello vue.js!!!'
+		}
+	})
+
+	var app2 = new Vue ({
+		el: '#app-2',
+		data: {
+			message: '页面加载于' + new Date() //鼠标悬停几秒后显示信息：页面加载于+当前时间
+		}
+	})
+	app2.message = 'news'  //这里改变了app2的message的值，所以鼠标悬停几秒后显示信息：news
+
+	var app3 = new Vue({
+		el: '#app-3',
+		data: {
+			seen: true  // seen的值：true||false  内容可见或不可见
+		}
+	})
+	app3.seen= false    // 文字 "现在你看到我了" 消失了
+
+	var app4 = new Vue ({
+		el: '#app-4',
+		data: {
+			todos: [
+			{
+				text: 'javascript'
+			},
+			{
+				text: 'vue'
+			}]
+		}
+	})
+	app4.todos.push({text:'新项目'});  //为列表添加新项。
+
+	var app5 = new Vue({
+		el: '#app-5',
+		data:{
+			message: 'vue.js'
+		},
+		methods: {
+			reverseMessage: function(){
+				// split()将字符串按照某个字符拆分为数组
+				// join()将数组中所有原有元素按照某个字符连接成一个字符串
+				// reverse() 颠倒数组中元素的顺序。
+				// split('').reverse().join('') 这样是把数组倒序输出
+				this.message = this.message.split('').reverse().join('')
+			}
+		}
+	})
+
+	var app6 = new Vue({
+		el: '#app-6',
+		data:{
+			message: 'Hello Vue!'
+		}
+	})
+</script>
+</body>
+</html>
